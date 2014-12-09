@@ -1,15 +1,12 @@
 import socket
 import sys
+import os
 import time
 
 
-def portscan( ip ):
+def portscan(ip):
 
-    filename = '\\'+str(ip)+'\portscan.txt'
-    file = open(filename, "w")
-
-    print("Enter hostname or ip.")
-    ip = input()
+    os.chdir(str(ip))
 
     try:
         host = socket.gethostbyname(ip)
@@ -18,11 +15,17 @@ def portscan( ip ):
         time.sleep(5)
         sys.exit()
 
-    text = 'Results from port scanning in target :' + str(ip) + '\n'
+    filename = 'portscan.txt'
+    file = open(filename, "w")
+
+    print("Enter hostname or ip.")
+    # ip = input()
+
+    text = 'Results from port scanning in target : ' + str(ip) + '\n'
     file.write(text)
 
     try:
-        for port in range(1, 1025):
+        for port in range(79, 81):
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
             res = sock.connect_ex((host, port))
@@ -38,5 +41,6 @@ def portscan( ip ):
         time.sleep(5)
         sys.exit()
 
+    file.close()
 
-file.close()
+portscan('127.0.0.1')
