@@ -46,3 +46,5 @@ def portscan():
     end = time.time()
 
     print("Scan finished in ", str(end-start), 's.')
+    input("Press enter to exit")
+    return
