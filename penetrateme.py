@@ -2,6 +2,7 @@ import os
 import portsc
 import time
 import sys
+import emailcr
 
 flag = False
 
@@ -21,12 +22,15 @@ while 1:
 
     print("Choose an action.")
     print("1. Port scan.")
+    print("2. Email crawler.")
     print("0. Exit.")
 
     choice = input()
 
     if choice == '1':
         portsc.portscan()
+    elif choice == '2':
+        emailcr.emailcrawl()
     elif choice == '0':
         print("PenetrateMe is closing...")
         time.sleep(2)

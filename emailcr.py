@@ -1,12 +1,14 @@
 import urllib.request
 import re
 
-file = open("emails.txt", "w")
-print("Enter URL")
-url = input()
+def emailcrawl():
 
-for email in re.findall(b"[\w.-]+@[\w.-]+", urllib.request.urlopen(url).read(), re.I):
-    file.write(email.decode('ASCII')+'\n')
-    print(email)
+    file = open("emails.txt", "w")
+    print("Enter URL")
+    url = input()
 
-file.close()
+    for email in re.findall(b"[\w.-]+@[\w.-]+", urllib.request.urlopen(url).read(), re.I):
+        file.write(email.decode('ASCII')+'\n')
+        print(email)
+
+    file.close()
