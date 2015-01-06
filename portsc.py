@@ -5,9 +5,9 @@ import time
 PORT_START = 79
 PORT_END = 81
 
-def portscan():
 
-    start = time.time()
+def portscan():
+    start = time.time()                                                                          # Time counter for scan
 
     ip = input("Enter target's IP or hostname\n")
 
@@ -19,7 +19,7 @@ def portscan():
         sys.exit()
 
     filename = 'portscan.txt'
-    file = open(filename, "w")
+    file = open(filename, "w")                                   # Opens file portscan.txt where results will be printed
 
     text = 'Results from port scanning in target : ' + str(ip) + '\n'
     file.write(text)
@@ -27,9 +27,8 @@ def portscan():
     try:
         for port in range(PORT_START, PORT_END):
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-            res = sock.connect_ex((host, port))
-            if res is 0:
+            res = sock.connect_ex((host, port))                                  # Tries to connect to the specific port
+            if res is 0:                                              # If the value returned is 0 then the port is open
                 print("Port :", port, "\tis open!")
                 text = '\tPort :' + str(port) + "\t is open!\n"
                 file.write(text)
@@ -43,8 +42,8 @@ def portscan():
 
     file.close()
 
-    end = time.time()
+    end = time.time()                                                                              # End of time counter
 
-    print("Scan finished in ", str(end-start), 's.')
-    input("Press enter to exit")
+    print("Scan finished in ", str(end - start), 's.')
+    input("Press ENTER to exit")
     return

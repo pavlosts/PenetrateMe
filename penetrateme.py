@@ -8,17 +8,19 @@ flag = False
 
 print("Hello user! Welcome to PenetrateMe 12.14.0")
 print("Enter name of the Attack!")
-directory = input()
+attack = input()
+
+# Checks if the Attack already exists
+for d in os.listdir(os.getcwd()):       # Scan every directory
+    if d in attack:
+        os.chdir(attack)                # Changes to directory with the name of the Attack
+        flag = True
+
+if flag is False:                       # If there is no such directory
+    os.mkdir(attack)                    # It creates one
+    os.chdir(attack)                    # And changes to it
 
 while 1:
-    for d in os.listdir(os.getcwd()):
-        if d in directory:
-            os.chdir(directory)
-            flag = True
-
-    if flag is False:
-        os.mkdir(directory)
-        os.chdir(directory)
 
     print("Choose an action.")
     print("1. Port scan.")
