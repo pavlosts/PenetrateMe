@@ -1,9 +1,12 @@
 import socket
 import sys
 import time
+import datetime
 
-PORT_START = 79
-PORT_END = 81
+cur_date = datetime.datetime.now()
+
+PORT_START = 1
+PORT_END = 1000
 
 
 def portscan():
@@ -21,7 +24,7 @@ def portscan():
     filename = 'portscan.txt'
     file = open(filename, "w")                                   # Opens file portscan.txt where results will be printed
 
-    text = 'Results from port scanning in target : ' + str(ip) + '\n'
+    text = 'Results from port scanning in target : ' + str(ip) + '\nDate : ' + str(cur_date) + '\n'
     file.write(text)
 
     try:
