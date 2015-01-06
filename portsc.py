@@ -2,11 +2,12 @@ import socket
 import sys
 import time
 import datetime
+import findport
 
 cur_date = datetime.datetime.now()
 
-PORT_START = 1
-PORT_END = 1000
+PORT_START = 79
+PORT_END = 81
 
 
 def portscan():
@@ -35,6 +36,7 @@ def portscan():
                 print("Port :", port, "\tis open!")
                 text = '\tPort :' + str(port) + "\t is open!\n"
                 file.write(text)
+                findport.find_port(port)
 
             sock.close()
 
