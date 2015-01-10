@@ -11,7 +11,9 @@ is a file which combines information from all the other files and makes a more "
 |Port Scanner|
 |------------|
 
-Port scanner checks a target for open ports. Then it checks the Port Exploitation Database and updates the Map of the Attack. 
+Port scanner checks a target for open ports. Then it checks the Port Exploitation Database and updates the Map of the Attack.
+
+Port scanner sends each port found to find_port() which creates a file with more information about each open port.
 
 |--------------|
 |E-mail Crawler|
