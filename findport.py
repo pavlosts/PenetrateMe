@@ -29,7 +29,6 @@ def find_port(port):
                 "\tagains known security websites on port 1052/tcp."
 
     elif port == 443:
-        print("Inside if 443")
         portname = "HTTPS"
         vulns = "\tSlapper trojan."
 

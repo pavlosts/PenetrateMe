@@ -5,7 +5,7 @@ import sys
 import emailcr
 
 folder = "PenetrateMe"                                      # The folder where PenetrateMe stores its files from attacks
-ver = "01.15.1"                                                                          # PenetrateMe's current version
+ver = "01.15.2"                                                                          # PenetrateMe's current version
 
 flag = False
 
