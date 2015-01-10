@@ -15,7 +15,7 @@ Port scanner checks a target for open ports. Then it checks the Port Exploitatio
 
 |--------------|
 |E-mail Crawler|
-|--------------|
+|--------------| (not added yet!)
 
 E-mail crawler scans a web page and saves every domain name it can fine. Then it adds the domain names in the Map of the Attack as possible
 targets.
