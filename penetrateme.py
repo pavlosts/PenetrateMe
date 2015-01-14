@@ -5,20 +5,26 @@ import sys
 import emailcr
 from tkinter import *
 
-folder = "PenetrateMe"  # The folder where PenetrateMe stores its files from attacks
-ver = "01.15.3"  # PenetrateMe's current version
-
 
 def start():
+    folder = "PenetrateMe"  # The folder where PenetrateMe stores its files from attacks
     flag = False
+    global ver
     global entry1
+    # global parent_frame
     global frame
 
-    frame = Frame(root, bg='black')
-    frame.pack()
+    ver = "0.5.2"  # PenetrateMe's current version
+
+    # parent_frame = Frame(root, bg='black')
+    # parent_frame.grid()
+
+    label = Label(root, text="Welcome to PenetrateMe " + ver, bg='#191E19', fg='white')
+    label.pack(expand=TRUE)
+
 
     # Checks if PenetrateMe folder already exists
-    os.chdir(os.path.join(os.path.expanduser('~'), 'Documents'))
+    os.chdir(os.path.join(os.path.expanduser('~'), 'Documents'))                             # Moves to documents folder
     for d in os.listdir(os.getcwd()):  # Scan every directory
         if d in folder:
             os.chdir(folder)  # Changes to directory
@@ -28,14 +34,17 @@ def start():
         os.mkdir(folder)  # It creates one
         os.chdir(folder)  # And changes to it
 
-    label1 = Label(frame, text="Enter name of the Attack", fg='white', bg='black')
+    frame = Frame(root, bg='#191E19')
+    frame.pack(expand=TRUE)
+
+    label2 = Label(frame, text="Enter name of the Attack", fg='white', bg='#191E19')
     entry1 = Entry(frame)
 
-    label1.grid()
-    entry1.grid(row=1)
+    label2.grid(row=5)
+    entry1.grid(row=6)
 
-    button = Button(frame, text='Enter', command=getname)
-    button.grid(row=2)
+    button = Button(frame, text='Enter', command=getname, bd=3)
+    button.grid(row=7)
 
 
 def getname():
@@ -65,24 +74,39 @@ def getname():
     options()
 
 
+def call_option(opt):
+    new_frame.destroy()
+
+    if opt == 1:
+        portsc.portscan(root)
+    elif opt == 2:
+        emailcr.emailcrawl()
+
 def options():
+    global new_frame
     frame.destroy()
 
-    new_frame = Frame(root, bg='black')
-    new_frame.pack()
+    new_frame = Frame(root, bg='#191E19')
+    new_frame.pack(expand=TRUE)
 
-    po_sc = Button(new_frame, text="Port Scan", fg='black', bg='green', command=portsc.portscan)
-    em_cr = Button(new_frame, text='Email Crawler', fg='Black', bg='green', command=emailcr.emailcrawl)
-    close = Button(new_frame, text='EXIT', fg='black', bg='red', command=sys.exit)
+    label1 = Label(new_frame, bg='#191E19')
+    label1.grid(row=1)
 
-    po_sc.grid()
-    em_cr.grid()
-    close.grid()
+    po_sc = Button(new_frame, text="Port Scan", fg='#191E19', bg='#33CC33', activebackground='#5CD65C', bd=3,
+                   command=lambda: call_option(1))
+    em_cr = Button(new_frame, text='Email Crawler', fg='#191E19', bg='#33CC33', activebackground='#5CD65C', bd=3,
+                   command=lambda: call_option(2))
+    close = Button(new_frame, text='EXIT', fg='#191E19', bg='#FF0000', activebackground='#FF3333', bd=3,
+                   relief=RIDGE, command=sys.exit)
 
-root = Tk()
-root.configure(backgroun="black")
+    po_sc.grid(row=10, pady=2)
+    em_cr.grid(row=11, pady=2)
+    close.grid(row=12, pady=2)
 
-print("Hello user! Welcome to PenetrateMe " + ver)
+root = Tk()                                                                                         # Creates the window
+root.configure(background="#191E19")                                                          # Sets background to black
+root.geometry('{}x{}'.format(200, 150))
+
 start()
 
-root.mainloop()
+root.mainloop()                                                                         # Make window visible constantly

@@ -4,6 +4,7 @@ import time
 import datetime
 import findport
 import threading
+from tkinter import *
 
 cur_date = datetime.datetime.now()
 
@@ -19,12 +20,20 @@ def check_port(host, port):
         print("Port :", port, "\tis open!")
         text = '\tPort :' + str(port) + "\t is open!\n"
         findport.find_port(port)
+        first_time = 0
 
     sock.close()
     return text
 
 
-def portscan():
+def portscan(root):
+
+    frame = Frame(root, background='red')
+    frame.pack(expand=TRUE)
+
+    text = Text(frame)
+    text.pack()
+
     start = time.time()  # Time counter for scan
 
     ip = input("Enter target's IP or hostname\n")
@@ -45,13 +54,12 @@ def portscan():
     try:
         port = PORT_START
         while port <= PORT_END:
-            for i in range(1, 5):
-                t = threading.Thread(target=check_port, args=(host, port, ))
-                t.start()
-                if text != "":
-                    file.write(text)
-                port += 1
-                time.sleep(0.001)
+            t = threading.Thread(target=check_port, args=(host, port, ))
+            t.start()
+            if text != "":
+                file.write(text)
+            port += 1
+            time.sleep(0.001)
 
     except socket.error:
         print("Could not connect to ", ip)
