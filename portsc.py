@@ -33,20 +33,14 @@ def get_ip(event, root, frame):
     file.write(text)
     file.close()
 
-    try:
-        port = PORT_START
-        while port <= PORT_END:
-            t = threading.Thread(target=check_port, args=(host, port, ))
-            t.start()
-            port += 1
-            time.sleep(0.001)
+    port = PORT_START
+    while port <= PORT_END:
+        t = threading.Thread(target=check_port, args=(host, port, ))
+        t.start()
+        port += 1
+        time.sleep(0.001)
 
-    except socket.error:
-        print("Could not connect to ", ip)
-        time.sleep(5)
-        sys.exit()
-
-    while len(threading.enumerate()) > 1:
+    while len(threading.enumerate()) > 1:  # waits until all ports are scanned
         time.sleep(0.001)
 
     end = time.time()  # End of time counter
@@ -55,12 +49,12 @@ def get_ip(event, root, frame):
     utils.options(root, frame)
 
 
-def get_response(sock, host, port):
+def get_response(sock, host, port):  # Gets the response for every open port
     if port == 21:
         response = sock.recv(1024)
         response = response.decode('utf-8')
         print(response)
-    if port == 80:
+    elif port == 80:
         sock.send(b'HEAD / HTTP/1.1\nHost: ' + host.encode() + b'\n\n')
         response = sock.recv(1024)
         response = response.decode('utf-8')
@@ -72,10 +66,15 @@ def get_response(sock, host, port):
 
 
 def check_port(host, port):
-    socket.setdefaulttimeout(0.5)
+    socket.setdefaulttimeout(0.5)   # scanning stops after 0.5 seconds
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print("Port " + str(port) + " started")
-    res = sock.connect_ex((host, port))  # Tries to connect to the specific port
+    try:
+        res = sock.connect_ex((host, port))  # Tries to connect to the specific port
+    except socket.error:
+        print("Error " + socket.error)
+        return
+
     if res is 0:  # If the value returned is 0 then the port is open
         print("Port :", port, "\tis open!")
         file = open(filename, 'a')

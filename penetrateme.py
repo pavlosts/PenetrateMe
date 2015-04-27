@@ -1,10 +1,5 @@
 import os
-import portsc
-import time
-import sys
-import emailcr
 import utils
-import time
 from tkinter import *
 
 
@@ -72,7 +67,7 @@ root = Tk()                                                                     
 root.configure(background="#191E19")                                                          # Sets background to black
 root.geometry('{}x{}'.format(200, 150))
 
-ver = "0.6.2"  # PenetrateMe's current version
+ver = "0.7.1"  # PenetrateMe's current version
 
 label = Label(root, text="Welcome to PenetrateMe " + ver, bg='#191E19', fg='white')
 label.pack(expand=TRUE)

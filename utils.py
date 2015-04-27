@@ -1,6 +1,7 @@
 import socket
 import portsc
 import emailcr
+import code_cracker
 from sys import exit
 from tkinter import *
 
@@ -13,6 +14,8 @@ def call_option(root, opt):
     elif opt == 2:
         emailcr.emailcrawl()
     elif opt == 3:
+        code_cracker.call_crack(root)
+    elif opt == 4:
         root.quit()
         exit(0)
 
@@ -33,9 +36,12 @@ def options(root, old_frame):
                    command=lambda: call_option(root, 1))
     em_cr = Button(frame, text='Email Crawler', fg='#191E19', bg='#33CC33', activebackground='#5CD65C', bd=3,
                    command=lambda: call_option(root, 2))
+    co_cra = Button(frame, text='Linux Password Cracker', fg='#191E19', bg='#33CC33', activebackground='#5CD65C', bd=3,
+                   command=lambda: call_option(root, 3))
     close = Button(frame, text='EXIT', fg='#191E19', bg='#FF0000', activebackground='#FF3333', bd=3,
-                   relief=RIDGE, command=lambda: call_option(root, 3))
+                   relief=RIDGE, command=lambda: call_option(root, 4))
 
     po_sc.grid(row=10, pady=2)
     em_cr.grid(row=11, pady=2)
-    close.grid(row=12, pady=2)
+    co_cra.grid(row=12, pady=2)
+    close.grid(row=13, pady=2)
