@@ -36,7 +36,7 @@ def options(root, old_frame):
                    command=lambda: call_option(root, 1))
     em_cr = Button(frame, text='Email Crawler', fg='#191E19', bg='#33CC33', activebackground='#5CD65C', bd=3,
                    command=lambda: call_option(root, 2))
-    co_cra = Button(frame, text='Linux Password Cracker', fg='#191E19', bg='#33CC33', activebackground='#5CD65C', bd=3,
+    co_cra = Button(frame, text='Linux Password Cracker (DES)', fg='#191E19', bg='#33CC33', activebackground='#5CD65C', bd=3,
                    command=lambda: call_option(root, 3))
     close = Button(frame, text='EXIT', fg='#191E19', bg='#FF0000', activebackground='#FF3333', bd=3,
                    relief=RIDGE, command=lambda: call_option(root, 4))

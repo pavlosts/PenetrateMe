@@ -1,6 +1,6 @@
 from tkinter import *
-#import crypt
-#import pwd
+from crypt import *
+import pwd
 import utils
 import time
 import threading
@@ -10,7 +10,7 @@ class LinuxUser():
     def __init__(self, user):
         self.chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
                       't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-        self.password = '9999'
+        self.password = pwd.getpwnam(user)[1]
         self.passw = ''
         self.user = user
         self.list1 = ['']
@@ -32,7 +32,8 @@ class LinuxUser():
         # Check every character
         for ch in self.chars:
             list1[0] = ch
-            if ''.join(list1) == self.password:
+            self.passwd = ''.join(list1)
+            if crypt(str(self.passwd), str(self.password[:2])) == self.password:
                 self.time_end = time.time()
                 print("Password for user: " + self.user + ' is: ' + self.password)
                 print("Time to find password: " + str(self.time_end - self.time_start))
@@ -55,7 +56,9 @@ class LinuxUser():
             for ch in self.chars:
                 list1[len(list1) - 1] = ch
                 print(''.join(list1))
-                if ''.join(list1) == self.password:
+                self.passwd = ''.join(list1)
+                #print(crypt(str(self.passwd), str(self.password[:2])), self.password)
+                if crypt(str(self.passwd), str(self.password[:2])) == self.password:
                     self.time_end = time.time()
                     print("Password for user: " + self.user + ' is: ' + self.password)
                     print("Time to find password: " + str(self.time_end - self.time_start))
