@@ -1,5 +1,4 @@
 import socket
-import sys
 import time
 import datetime
 import findport
@@ -10,13 +9,27 @@ from tkinter import *
 cur_date = datetime.datetime.now()
 
 PORT_START = 1
-PORT_END = 1000
+PORT_END = 100
+
+ports = []
 
 filename = 'portscan.txt'
 
 
+def write_port(port):
+    with open(filename, 'a') as file:
+        file.write("Port:" + str(port) + " is open!\n")
+
+    findport.find_port(port)
+
+
 def get_ip(event, root, frame):
     ip = entry.get()
+
+    file = open(filename, 'w')
+    text = 'Results from port scanning in target : ' + str(ip) + '\nDate : ' + str(cur_date) + '\n'
+    file.write(text)
+    file.close()
 
     start = time.time()  # Time counter for scan
 
@@ -26,12 +39,6 @@ def get_ip(event, root, frame):
         print("Error resolving hostname...")
         time.sleep(6)
         sys.exit()
-
-    file = open(filename, "w")  # Opens file portscan.txt where results will be printed
-
-    text = 'Results from port scanning in target : ' + str(ip) + '\nDate : ' + str(cur_date) + '\n'
-    file.write(text)
-    file.close()
 
     port = PORT_START
     while port <= PORT_END:
@@ -46,27 +53,34 @@ def get_ip(event, root, frame):
     end = time.time()  # End of time counter
 
     print("Scan finished in ", str(end - start), 's.')
+    ports.sort()
+    for port in ports:
+        write_port(port)
     utils.options(root, frame)
 
 
 def get_response(sock, host, port):  # Gets the response for every open port
     if port == 21:
+        sock.send(b'Hello!')
         response = sock.recv(1024)
         response = response.decode('utf-8')
         print(response)
+        fn = 'port_' + str(port) + '_response.txt'
+        with open(fn, 'w+') as file:
+            file.write(response)
+
     elif port == 80:
         sock.send(b'HEAD / HTTP/1.1\nHost: ' + host.encode() + b'\n\n')
         response = sock.recv(1024)
         response = response.decode('utf-8')
         print(response)
         fn = 'port_' + str(port) + '_response.txt'
-        file = open(fn, 'w')
-        file.write(response)
-        file.close
+        with open(fn, 'w+') as file:
+            file.write(response)
 
 
 def check_port(host, port):
-    socket.setdefaulttimeout(0.5)   # scanning stops after 0.5 seconds
+    socket.setdefaulttimeout(1)   # scanning stops after 1 second
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print("Port " + str(port) + " started")
     try:
@@ -77,13 +91,9 @@ def check_port(host, port):
 
     if res is 0:  # If the value returned is 0 then the port is open
         print("Port :", port, "\tis open!")
-        file = open(filename, 'a')
-        text = '\tPort :' + str(port) + "\t is open!\n"
-        file.write(text)
-        file.close()
+        ports.append(port)
 
         get_response(sock, host, port)
-        findport.find_port(port)
 
     print("port " + str(port) + " finished")
     sock.close()
@@ -91,6 +101,9 @@ def check_port(host, port):
 
 def portscan(root):
     global entry
+
+    file = open('ports.txt', 'w')
+    file.close()
 
     frame = Frame(root, background='#191E19')
     frame.pack(expand=TRUE)
@@ -102,5 +115,3 @@ def portscan(root):
     entry.grid(row=2)
 
     entry.bind('<Return>', lambda event: get_ip(event, root, frame))
-    # button = Button(frame, text='Enter', command=lambda: get_ip(root, frame), bd=3)
-    # button.grid(row=3)

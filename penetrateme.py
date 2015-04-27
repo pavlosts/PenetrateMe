@@ -22,7 +22,6 @@ def start(label):
         os.mkdir(folder)  # It creates one
         os.chdir(folder)  # And changes to it
 
-    # time.sleep(2)
 
     frame = Frame(root, bg='#191E19')
     frame.pack(expand=TRUE)
@@ -52,11 +51,11 @@ def getname(event):
         os.mkdir(attack)  # It creates one
         os.chdir(attack)  # And changes to it
 
-    text = 'Map of the Attack.txt'
+    text = 'Attack Surface.txt'
     if not os.path.exists(text):  # Checks if the file already exists
         file = open(text, "w")  # If not, it creates one
         file.write("-" * 28 + "\n")
-        file.write("\tMap of the Attack!\n")
+        file.write("\tAttack Surface!\n")
         file.write("\tAttack name : " + attack + "\n")
         file.write("-" * 28 + "\n")
 
@@ -67,7 +66,7 @@ root = Tk()                                                                     
 root.configure(background="#191E19")                                                          # Sets background to black
 root.geometry('{}x{}'.format(200, 150))
 
-ver = "0.7.2"  # PenetrateMe's current version
+ver = "0.7.3"  # PenetrateMe's current version
 
 label = Label(root, text="Welcome to PenetrateMe " + ver, bg='#191E19', fg='white')
 label.pack(expand=TRUE)

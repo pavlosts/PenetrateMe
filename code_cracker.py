@@ -1,6 +1,8 @@
 from tkinter import *
-from crypt import *
-import pwd
+from sys import platform as _platform
+if _platform == "linux" or _platform == "linux2":
+    import crypt
+    import pwd
 import utils
 import time
 import threading
@@ -57,7 +59,6 @@ class LinuxUser():
                 list1[len(list1) - 1] = ch
                 print(''.join(list1))
                 self.passwd = ''.join(list1)
-                #print(crypt(str(self.passwd), str(self.password[:2])), self.password)
                 if crypt(str(self.passwd), str(self.password[:2])) == self.password:
                     self.time_end = time.time()
                     print("Password for user: " + self.user + ' is: ' + self.password)
