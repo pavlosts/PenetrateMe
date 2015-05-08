@@ -7,7 +7,7 @@ For each attack PenetrateMe creates a folder with files related with the attack.
 is a file which combines information from all the other files in a single file for easier use.
 
 
-<font size="10"><b>Port Scanner</b></font>
+<font size="15"><b>Port Scanner</b></font>
 
 Port scanner checks a target for open ports. Then it checks the Port Exploitation Database and updates the Map of the Attack.
 
