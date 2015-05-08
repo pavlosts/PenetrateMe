@@ -2,12 +2,12 @@ def find_port(port):
 
     portname = "N/A"
     vulns = "N/A"
-    text = 'ports.txt'
+    text = 'ports.html'
     file = open(text, "a")
 
     if port == 21:
-        portname = 'FTP'
-        vulns = "List of some trojan horses/backdoors that also use this port: Back Construction, Blade Runner, " \
+        portname = '<h1>FTP</h1>'
+        vulns = "<p>List of some trojan horses/backdoors that also use this port: Back Construction, Blade Runner, " \
                 "Cattivik FTP Server, CC Invader, Dark FTP, Doly Trojan, Fore, Invisible FTP, Juggernaut 42, Larva," \
                 " MotIv FTP, Nerte 7.8.1, Net Administrator, Ramen, Senna Spy FTP server, The Flu, Traitor 21, WebEx," \
                 " WinCrash, W32.Mytob.AE@mm, W32.Sober.N@mm."\
@@ -15,7 +15,7 @@ def find_port(port):
                 "settings on the compromised computer. It exploits the MS Plug and Play Buffer Overflow vulnerability "\
                 "(MS Security Bulletin [MS05-039]) on port 21/tcp., and by sending copies of itself to gathered " \
                 "email addresses. Also opens a backdoor on a random tcp port and/or port 80/udp." \
-                "W32.Loxbot.C (01.11.2006)"
+                "W32.Loxbot.C (01.11.2006)</p>"
 
     elif port == 25:
         portname = 'SMTP'
@@ -56,7 +56,7 @@ def find_port(port):
 
     elif port == 80:
         portname = 'HTTP'
-        vulns = "\t711 trojan (Seven Eleven), AckCmd, BlueFire, Cafeini, Duddie, Executor, God Message,\n" \
+        vulns = "711 trojan (Seven Eleven), AckCmd, BlueFire, Cafeini, Duddie, Executor, God Message,\n" \
                 "\tIntruzzo , Latinus, Lithium, MscanWorm, NerTe, Nimda, Noob, Optix Lite, Optix Pro , Power,\n" \
                 "\tRamen, Remote Shell , Reverse WWW Tunnel Backdoor , RingZero, RTB 666, Scalper, Screen Cutter ,\n" \
                 "\tSeeker, Slapper, Web Server CT , WebDownloader"
@@ -100,9 +100,9 @@ def find_port(port):
         portname = "APEX"
         vulns = "TCP port 912 is vulnerable to multiple stack-based buffer overflows from specially crafted packets."
 
-    file.write("Port : " + str(port) + "\n")
-    file.write("Port name : " + portname + "\n")
-    file.write("Known vulnerabilities:\n" + vulns)
+    file.write("<h1>Port : " + str(port) + "</h1>\n")
+    file.write("<h2>Port name : " + portname + "</h2>\n")
+    file.write("<b>Known vulnerabilities:</b>\n" + vulns)
     file.write("\n\n")
 
     file.close()

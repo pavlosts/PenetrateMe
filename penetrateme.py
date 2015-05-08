@@ -51,13 +51,11 @@ def getname(event):
         os.mkdir(attack)  # It creates one
         os.chdir(attack)  # And changes to it
 
-    text = 'Attack Surface.txt'
+    text = 'Attack Surface.html'
     if not os.path.exists(text):  # Checks if the file already exists
         file = open(text, "w")  # If not, it creates one
-        file.write("-" * 28 + "\n")
-        file.write("\tAttack Surface!\n")
-        file.write("\tAttack name : " + attack + "\n")
-        file.write("-" * 28 + "\n")
+        file.write("<h1>Attack Surface!</h1>\n")
+        file.write("<h2>Attack name : " + attack + "</h2>\n")
 
     utils.options(root, frame)
 
@@ -66,7 +64,7 @@ root = Tk()                                                                     
 root.configure(background="#191E19")                                                          # Sets background to black
 root.geometry('{}x{}'.format(200, 150))
 
-ver = "0.7.3"  # PenetrateMe's current version
+ver = "0.7.4"  # PenetrateMe's current version
 
 label = Label(root, text="Welcome to PenetrateMe " + ver, bg='#191E19', fg='white')
 label.pack(expand=TRUE)

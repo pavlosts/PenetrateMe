@@ -5,20 +5,22 @@ import findport
 import threading
 import utils
 from tkinter import *
+import ftplib
+import os
 
 cur_date = datetime.datetime.now()
 
 PORT_START = 1
-PORT_END = 100
+PORT_END = 500
 
 ports = []
 
-filename = 'portscan.txt'
+filename = 'portscan.html'
 
 
 def write_port(port):
     with open(filename, 'a') as file:
-        file.write("Port:" + str(port) + " is open!\n")
+        file.write("<p>Port: " + str(port) + " is <font color = #006600><b>open</b></font>!</p>\n")
 
     findport.find_port(port)
 
@@ -27,7 +29,7 @@ def get_ip(event, root, frame):
     ip = entry.get()
 
     file = open(filename, 'w')
-    text = 'Results from port scanning in target : ' + str(ip) + '\nDate : ' + str(cur_date) + '\n'
+    text = '<h1>Results from port scanning in target : <b>' + str(ip) + '</b></h1>\n<h2>Date : ' + str(cur_date) + '</h2>\n'
     file.write(text)
     file.close()
 
@@ -59,6 +61,18 @@ def get_ip(event, root, frame):
     utils.options(root, frame)
 
 
+def anonymous_login(host):
+    try:
+        ftp = ftplib.FTP(host)
+        ftp.login('anonymous')
+        with open("port_21_response.txt", 'a') as file:
+            file.write("\nHost: " + host + " supports anonymous login!")
+        ftp.quit()
+    except:
+        with open('port_21_response.txt', 'a') as file:
+            file.write("Host: " + host + " does not support anonymous login...")
+
+
 def get_response(sock, host, port):  # Gets the response for every open port
     if port == 21:
         sock.send(b'Hello!')
@@ -66,8 +80,20 @@ def get_response(sock, host, port):  # Gets the response for every open port
         response = response.decode('utf-8')
         print(response)
         fn = 'port_' + str(port) + '_response.txt'
+        fn2 = 'port_' + str(port) + '_response.html'
         with open(fn, 'w+') as file:
             file.write(response)
+
+        with open(fn, 'r') as file:
+            file2 = open(fn2, 'a+')
+            lines = file.readlines()
+            for line in lines:
+                file2.write('<p>'+line+'</p>')
+            file2.close()
+
+        os.remove(fn)
+
+        anonymous_login(host)
 
     elif port == 80:
         sock.send(b'HEAD / HTTP/1.1\nHost: ' + host.encode() + b'\n\n')
@@ -75,8 +101,18 @@ def get_response(sock, host, port):  # Gets the response for every open port
         response = response.decode('utf-8')
         print(response)
         fn = 'port_' + str(port) + '_response.txt'
+        fn2 = 'port_' + str(port) + '_response.html'
         with open(fn, 'w+') as file:
             file.write(response)
+
+        with open(fn, 'r') as file:
+            file2 = open(fn2, 'a+')
+            lines = file.readlines()
+            for line in lines:
+                file2.write('<p>'+line+'</p>')
+            file2.close()
+
+        os.remove(fn)
 
 
 def check_port(host, port):
@@ -102,7 +138,7 @@ def check_port(host, port):
 def portscan(root):
     global entry
 
-    file = open('ports.txt', 'w')
+    file = open('ports.html', 'w')
     file.close()
 
     frame = Frame(root, background='#191E19')
