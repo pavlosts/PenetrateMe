@@ -3,8 +3,8 @@ PenetrateMe
 
 PenetrateMe is a very simple penetration testing suite. Over time, many programs will be added like port scanners and password crackers.
 
-For each attack PenetrateMe creates a folder with files related with the attack. One of these files is Map of the Attack. Map of the Attack
-is a file which combines information from all the other files and makes a more "beautiful" environment for the user.
+For each attack PenetrateMe creates a folder with files related with the attack. One of these files is Attack Surface. Attack Surface
+is a file which combines information from all the other files in a single file for easier use.
 
 
 |------------|
@@ -21,6 +21,13 @@ Port scanner sends each port found to find_port() which creates a file with more
 
 E-mail crawler scans a web page and saves every domain name it can fine. Then it adds the domain names in the Map of the Attack as possible
 targets.
+
+|----------------------------|
+|Linux Password Cracker (DES)|
+|----------------------------|
+
+This is a cracker for Linux users. It takes as input the username and brute-forces the password. It works with Linux OS's
+that use the DES encryption algorithm.
 
 |-----------|
 |URL Crawler|
