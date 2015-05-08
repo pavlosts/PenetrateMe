@@ -8,7 +8,9 @@ is a file which combines information from all the other files in a single file f
 
 
 |------------|
+
 |Port Scanner|
+
 |------------|
 
 Port scanner checks a target for open ports. Then it checks the Port Exploitation Database and updates the Map of the Attack.
