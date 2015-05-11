@@ -12,7 +12,7 @@ def call_option(root, opt):
     if opt == 1:
         portsc.portscan(root)
     elif opt == 2:
-        emailcr.emailcrawl()
+        emailcr.emailcrawl(root)
     elif opt == 3:
         code_cracker.call_crack(root)
     elif opt == 4:

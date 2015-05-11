@@ -54,6 +54,7 @@ def getname(event):
     text = 'Attack Surface.html'
     if not os.path.exists(text):  # Checks if the file already exists
         file = open(text, "w")  # If not, it creates one
+        file.write("<body bgcolor=\"#91B5B5\"></body>")
         file.write("<h1>Attack Surface!</h1>\n")
         file.write("<h2>Attack name : " + attack + "</h2>\n")
 
@@ -62,9 +63,9 @@ def getname(event):
 
 root = Tk()                                                                                         # Creates the window
 root.configure(background="#191E19")                                                          # Sets background to black
-root.geometry('{}x{}'.format(200, 150))
+root.geometry('{}x{}'.format(250, 150))
 
-ver = "0.7.4"  # PenetrateMe's current version
+ver = "0.7.6"  # PenetrateMe's current version
 
 label = Label(root, text="Welcome to PenetrateMe " + ver, bg='#191E19', fg='white')
 label.pack(expand=TRUE)

@@ -3,7 +3,10 @@ def find_port(port):
     portname = "N/A"
     vulns = "N/A"
     text = 'ports.html'
-    file = open(text, "a")
+    file = open(text, "a+")
+    lines = file.readlines()
+    if "<body bgcolor=\"#91B5B5\"></body>" not in lines:
+        file.write("<body bgcolor=\"#91B5B5\"></body>")
 
     if port == 21:
         portname = '<h1>FTP</h1>'
